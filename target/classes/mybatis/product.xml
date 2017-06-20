@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tr.coalgas.dao.product.IProductDao">
+	<resultMap id="BaseResultMap" type="cn.tr.coalgas.entity.Product">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="amount" jdbcType="DOUBLE" property="amount" />
+		<result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
+		<result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+		<result column="heat" jdbcType="VARCHAR" property="heat" />
+		<result column="level" jdbcType="VARCHAR" property="level" />
+		<result column="confirm_person" jdbcType="VARCHAR" property="confirmPerson" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, amount, unit_price, total_price, heat, level, confirm_person, remark
+	</sql>
+
+	<select id="selectById" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from product
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from product
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from product
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insert" parameterType="cn.tr.coalgas.entity.Product">
+		insert into product (
+		<include refid="Base_Column_List" />
+		)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{amount,jdbcType=DOUBLE}, #{unitPrice,jdbcType=DOUBLE}, 
+		#{totalPrice,jdbcType=DOUBLE}, #{heat,jdbcType=VARCHAR},
+		#{level,jdbcType=VARCHAR}, #{confirmPerson,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateById" parameterType="cn.tr.coalgas.entity.Product">
+		update product
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=DOUBLE},
+			</if>
+			<if test="unitPrice != null">
+				unit_price = #{unitPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="totalPrice != null">
+				total_price = #{totalPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="heat != null">
+				heat = #{heat,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=VARCHAR},
+			</if>
+			<if test="confirmPerson != null">
+				confirm_person = #{confirmPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>
