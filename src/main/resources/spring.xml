@@ -20,7 +20,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 	
-	<!-- 指定IOC容器扫描的包 -->
+	<!-- 指定IOC容器扫描的包(spring扫描范围) -->
 	<context:component-scan base-package="cn.tr.coalgas.*"/>
 	
 	<!-- 加载jdbc资源文件 -->
@@ -44,13 +44,13 @@
     
     <!-- 配置MapperScannerConfigurer -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-    	<!-- 要扫描的包 -->
+    		<!-- 要扫描的包 -->
         <property name="basePackage" value="cn.tr.coalgas.dao"/>
     </bean>
     
     <!-- 配置SqlSessionTemplate -->
     <bean id="sst" class="org.mybatis.spring.SqlSessionTemplate">
-    	<constructor-arg index="0" ref="ssf"></constructor-arg>
+    		<constructor-arg index="0" ref="ssf"></constructor-arg>
     </bean>
     
 </beans>
